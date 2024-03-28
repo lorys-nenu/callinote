@@ -35,4 +35,3 @@ mobile-frontend/.env*.local
 
 # typescript
 mobile-frontend/*.tsbuildinfo
-mobile-frontend/
