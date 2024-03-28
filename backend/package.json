@@ -4,12 +4,13 @@
   "description": "The backend for Callinote, the note taking app designed for Artists",
   "main": "index.js",
   "scripts": {
-    "start": "node --env-file=.env app.js",
+    "start": "nodemon --inspect --env-file=.env app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
   }
 }
