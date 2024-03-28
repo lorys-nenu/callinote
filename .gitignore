@@ -1,0 +1,38 @@
+
+backend/.env
+
+# Node Modules
+backend/node_modules
+mobile-frontend/node_modules
+
+# Expo
+mobile-frontend/.expo/
+mobile-frontend/dist/
+mobile-frontend/web-build/
+
+# Native
+mobile-frontend/*.orig.*
+mobile-frontend/*.jks
+mobile-frontend/*.p8
+mobile-frontend/*.p12
+mobile-frontend/*.key
+mobile-frontend/*.mobileprovision
+
+# Metro
+mobile-frontend/.metro-health-check*
+
+# debug
+mobile-frontend/npm-debug.*
+mobile-frontend/yarn-debug.*
+mobile-frontend/yarn-error.*
+
+# macOS
+mobile-frontend/.DS_Store
+mobile-frontend/*.pem
+
+# local env files
+mobile-frontend/.env*.local
+
+# typescript
+mobile-frontend/*.tsbuildinfo
+mobile-frontend/
