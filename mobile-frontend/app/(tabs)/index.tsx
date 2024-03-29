@@ -1,14 +1,26 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
+import useGetNotes from '@/hooks/useGetNotes';
+import useCreateNote from '@/hooks/useAddNote';
 
 export default function TabOneScreen() {
+  const { notes, isLoading } = useGetNotes();
+  const { addNote } = useCreateNote();
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      {isLoading && <Text>Loading...</Text>}
+      {notes?.map(note => (
+        <Text key={note.id}>{note.title}</Text>
+      ))}
+      <TouchableOpacity
+       onPress={() => addNote()}
+       >
+        <Text>Create new note</Text>
+      </TouchableOpacity>
     </View>
   );
 }

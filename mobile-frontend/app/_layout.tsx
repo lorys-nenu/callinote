@@ -4,6 +4,11 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { 
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -49,10 +54,12 @@ function RootLayoutNav() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <QueryClientProvider client={queryClient}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }
