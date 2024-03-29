@@ -2,7 +2,9 @@
 import { useUser } from '@/stores/user';
 import { router } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import Text from '@/app/components/Text';
+import theme from '@/constants/theme';
 
 // create a component
 const Login = () => {
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: theme.black,
   },
 });
 

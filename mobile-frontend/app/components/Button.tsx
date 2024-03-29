@@ -21,10 +21,10 @@ const Button = ({title, onPress, shouldForwardPressEvent, touchableOpacityProps}
   }
   return (
     <TouchableOpacity 
-    onPress={handlePress} 
-    style={styles.button}
-    activeOpacity={0.8}
-    {...touchableOpacityProps}
+      onPress={handlePress} 
+      style={styles.button}
+      activeOpacity={0.8}
+      {...touchableOpacityProps}
     >
       <Text
         style={{color: "#fff"}}
