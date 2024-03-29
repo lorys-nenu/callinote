@@ -8,9 +8,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const Login = () => {
   const loguser = useUser().setUser;
   const user = useUser().user;
-  console.log("login", user);
   const logme = () => {
-    console.log('logme');
     loguser({
       id: "1",
       name: 'Lorys', 

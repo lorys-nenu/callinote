@@ -1,5 +1,9 @@
 import express from 'express'
 const app = express()
+
+import bodyParser from 'body-parser'
+app.use(bodyParser.json())
+
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 const port = process.env.PORT || 3000
@@ -9,7 +13,6 @@ app.get('/', (req, res) => {
 })
 
 app.get('/modal', (req, res) => {
-  console.log('GET /modal')
   res.status(200).json({ title: 'Hello Modal!' })
 })
 
@@ -23,6 +26,11 @@ app.post('/notes', async (req, res) => {
     data: {
       title: 'Untitled Note',
       content: '',
+      user: {
+        connect: {
+          id: req.body.userId,
+        }
+      }
     },
   })
 
@@ -61,5 +69,5 @@ app.put('/notes/:id', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.info(`Calliapp listening on port ${port}`)
 })

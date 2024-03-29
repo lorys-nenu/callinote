@@ -1,29 +1,27 @@
 //import liraries
+import useAddNote from '@/hooks/useAddNote';
+import useGetNotes from '@/hooks/useGetNotes';
 import { Stack } from 'expo-router';
 import React from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
+import Button from '../components/Button';
 
 // create a component
 const Home = () => {
+  const {notes, isLoading} = useGetNotes();
+  const { addNote } = useAddNote();
+
   return (
-    <View style={styles.container}>
+    <View>
       <Text>Home</Text>
       <Stack.Screen
         options={{ title: 'Home' }}
         />
+      <Text>{isLoading ? 'Loading...' : notes?.map(note => note.title).join(', ')}</Text>
+      <Button title="Add note" onPress={() => addNote()} />
     </View>
   );
 };
-
-// define your styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#2c3e50',
-  },
-});
 
 //make this component available to the app
 export default Home;
