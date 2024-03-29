@@ -2,20 +2,23 @@
 import { type Note } from '@/constants/Note';
 import theme from '@/constants/theme';
 import React from 'react';
-import { View, StyleSheet, ViewProps } from 'react-native';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import Text from './Text';
+import { Link } from 'expo-router';
 
 type NoteListCardProps = {
   note: Note;
 };
 
 // create a component
-const NoteListCard = ({ note, style,...rest } : NoteListCardProps & ViewProps) => {
+const NoteListCard = ({ note, style,...rest } : NoteListCardProps & TouchableOpacityProps) => {
   return (
-    <View style={[styles.container, style]} {...rest}>
-      <Text style={styles.title}>{note.title}</Text>
-      <Text style={{color: note.content ? "white" : theme.grey[100]}}>{note.content || "This note is currently empty"}</Text>
-    </View>
+    <Link style={[styles.container, style]} asChild href={{pathname: "/(app)/notes/[noteId]", params: {noteId: note.id}}} onPress={() => console.log("pressing")}>
+      <TouchableOpacity {...rest}>
+        <Text style={styles.title}>{note.title}</Text>
+        <Text style={{color: note.content ? "white" : theme.grey[100]}}>{note.content || "This note is currently empty"}</Text>
+    </TouchableOpacity>
+    </Link>
   );
 };
 

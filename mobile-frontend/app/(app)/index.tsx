@@ -1,7 +1,7 @@
 //import liraries
 import useAddNote from '@/hooks/useAddNote';
 import useGetNotes from '@/hooks/useGetNotes';
-import { Stack } from 'expo-router';
+import { Stack, Link } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 import Button from '@/app/components/Button';
@@ -27,7 +27,9 @@ const Home = () => {
         />
       <ScrollView style={styles.scrollContainer}>
         <Text style={styles.title}>Notes</Text>
-        {isLoading ? <Text>Loading...</Text> : notes?.map(note => <NoteListCard style={styles.listItems} key={note.id} note={note} />)}
+        {isLoading ? <Text>Loading...</Text> : notes?.map(note => (
+          <NoteListCard style={styles.listItems} key={note.id} note={note} />
+        ))}
       </ScrollView>
       <Button title="Add note" onPress={() => addNote()} />
     </View>
