@@ -13,10 +13,10 @@ type NoteListCardProps = {
 // create a component
 const NoteListCard = ({ note, style,...rest } : NoteListCardProps & TouchableOpacityProps) => {
   return (
-    <Link style={[styles.container, style]} asChild href={{pathname: "/(app)/notes/[noteId]", params: {noteId: note.id}}} onPress={() => console.log("pressing")}>
+    <Link style={[styles.container, style]} asChild href={{pathname: "/(app)/notes/[noteId]", params: {noteId: note.id}}}>
       <TouchableOpacity {...rest}>
         <Text style={styles.title}>{note.title}</Text>
-        <Text style={{color: note.content ? "white" : theme.grey[100]}}>{note.content || "This note is currently empty"}</Text>
+        <Text style={{color: note.HTMLcontent ? "white" : theme.grey[100]}}>{note.unformattedContent || "This note is currently empty"}</Text>
     </TouchableOpacity>
     </Link>
   );

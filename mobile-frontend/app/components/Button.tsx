@@ -37,7 +37,7 @@ const Button = ({title, onPress, shouldForwardPressEvent, touchableOpacityProps}
 const styles = StyleSheet.create({
   button: {
     display: 'flex',
-    backgroundColor: theme.purple[700],
+    backgroundColor: theme.accent,
     paddingVertical: theme.padding.md,
     paddingHorizontal: theme.padding.lg,
     borderRadius: theme.borderRadius.sm,

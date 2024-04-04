@@ -22,6 +22,7 @@ const theme = {
   grey,
   white: "#fff",
   black: "#000",
+  accent: purple[700],
   padding: {
     none: 0,
     sm: 4,

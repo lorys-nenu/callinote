@@ -25,7 +25,7 @@ app.post('/notes', async (req, res) => {
   const createdNote = await prisma.note.create({
     data: {
       title: 'Untitled Note',
-      content: '',
+      HTMLcontent: '',
       user: {
         connect: {
           id: req.body.userId,
@@ -41,7 +41,7 @@ app.get('/notes/:id', async (req, res) => {
   const { id } = req.params
   const note = await prisma.note.findUnique({
     where: {
-      id: parseInt(id),
+      id,
     },
   })
 
@@ -54,14 +54,16 @@ app.get('/notes/:id', async (req, res) => {
 
 app.put('/notes/:id', async (req, res) => {
   const { id } = req.params
-  const { title, content } = req.body
+  console.log(id, req.body)
+  const { title, HTMLcontent, unformattedContent } = req.body
   const note = await prisma.note.update({
     where: {
-      id: parseInt(id),
+      id,
     },
     data: {
       title,
-      content,
+      HTMLcontent,
+      unformattedContent
     },
   })
 
