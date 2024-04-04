@@ -14,7 +14,7 @@ const useGetNotes = () => {
     }
   });
 
-  return { notes, isLoading: isPending, isError};
+  return { notes: notes?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()), isLoading: isPending, isError};
 }
 
 export default useGetNotes;
