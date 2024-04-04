@@ -50,8 +50,14 @@ const NoteDetails = () => {
   }, 1000);
 
   useEffect(() => {
+    if(!note) return;
     submitContentHandle();
   }, [descHTML]);
+
+  useEffect(() => {
+    if(!note) return;
+    setDescHTML(note.HTMLcontent);
+  }, [note]);
 
   return (
     <SafeAreaView style={styles.container}>
