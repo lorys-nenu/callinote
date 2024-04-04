@@ -5,7 +5,8 @@
   "description": "The backend for Callinote, the note taking app designed for Artists",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --inspect --env-file=.env app.js",
+    "dev": "nodemon --inspect --env-file=.env app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
