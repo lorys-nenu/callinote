@@ -36,3 +36,6 @@ mobile-frontend/.env*.local
 # typescript
 mobile-frontend/*.tsbuildinfo
 mobile-frontend/.env
+
+# backend build
+backend/dist/

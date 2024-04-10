@@ -1,28 +1,16 @@
-import express from 'express'
-const app = express()
-
-import bodyParser from 'body-parser'
-app.use(bodyParser.json())
-
-import { PrismaClient } from '@prisma/client'
+import { Note, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+import { Router, Request, Response } from 'express'
+const router = Router()
 
-app.get('/modal', (req, res) => {
-  res.status(200).json({ title: 'Hello Modal!' })
-})
-
-app.get('/notes', async (req, res) => {
-  const notes = await prisma.note.findMany()
+router.get('/', async (req: Request, res: Response) => {
+  const notes: Note[] = await prisma.note.findMany()
   res.status(200).json(notes)
 })
 
-app.post('/notes', async (req, res) => {
-  const createdNote = await prisma.note.create({
+router.post('/', async (req: Request, res: Response) => {
+  const createdNote: Note = await prisma.note.create({
     data: {
       title: 'Untitled Note',
       HTMLcontent: '',
@@ -37,7 +25,7 @@ app.post('/notes', async (req, res) => {
   res.status(201).json(createdNote)
 })
 
-app.get('/notes/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   const { id } = req.params
   const note = await prisma.note.findUnique({
     where: {
@@ -52,7 +40,7 @@ app.get('/notes/:id', async (req, res) => {
   res.status(200).json(note)
 })
 
-app.put('/notes/:id', async (req, res) => {
+router.put('/:id', async (req: Request, res: Response) => {
   const { id } = req.params
   console.log(id, req.body)
   const { title, HTMLcontent, unformattedContent } = req.body
@@ -70,6 +58,4 @@ app.put('/notes/:id', async (req, res) => {
   res.status(200).json(note)
 })
 
-app.listen(port, () => {
-  console.info(`Calliapp listening on port ${port}`)
-})
+export default router;
