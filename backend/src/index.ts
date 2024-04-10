@@ -6,7 +6,6 @@ dotenv.config()
 import express, { Request, Response} from 'express'
 const app = express()
 const port = process.env.PORT || 3000
-console.log(process.env.PORT)
 import bodyParser from 'body-parser'
 app.use(bodyParser.json())
 
