@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "mobile-frontend",
-    "slug": "mobile-frontend",
+    "slug": "callinote",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -34,6 +34,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6d87600c-7e52-42b2-9e88-1cb630b1e7fa"
+      }
+    },
+    "owner": "nenu.js"
   }
 }

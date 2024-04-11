@@ -1,10 +1,12 @@
+import isAuth from '../middlewares/isAuth'
+
 import { Note, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 import { Router, Request, Response } from 'express'
 const router = Router()
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', isAuth, async (req: Request, res: Response) => {
   const notes: Note[] = await prisma.note.findMany()
   res.status(200).json(notes)
 })
