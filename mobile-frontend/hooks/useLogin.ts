@@ -11,7 +11,7 @@ type LoginData = {
 };
 
 const useLogin = () => {
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const { signIn } = useAuth();
   const { setUser } = useUser();
   const queryClient = useQueryClient();
@@ -39,13 +39,14 @@ const useLogin = () => {
 
   const { mutateAsync } = useMutation<{user: User, token: string}, Error, LoginData>({
     mutationFn: login,
+    onMutate: () => {
+      setError(null);
+    },
     onSuccess: (data) => {
       if (!data) return;
-      console.log(data);
       signIn(data.token);
       setUser(data.user);
       queryClient.setQueryData(["authUser"], data);
-      router.navigate("/")
     },
   });
 

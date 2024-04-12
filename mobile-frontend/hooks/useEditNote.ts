@@ -17,7 +17,7 @@ import useAuthenticatedFetch from "./useAuthenticatedFetch";
 
 const useEditNote = (noteId: Note["id"]) => {
   const user = useUser().user;
-  const authenticatedFetch = useAuthenticatedFetch();
+  const authenticatedFetch= useAuthenticatedFetch();
 
   const putNote = async (note: unknown) => {
     if (!user) {
@@ -26,15 +26,13 @@ const useEditNote = (noteId: Note["id"]) => {
 
     const noteObject = note as Note;
 
-    const response = await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes/" + noteId, {
+    return await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes/" + noteId, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({...noteObject, userId: user.id}),
     });
-
-    return response.json();
   }
 
   const queryClient = useQueryClient();

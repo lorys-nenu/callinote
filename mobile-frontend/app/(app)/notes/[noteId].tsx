@@ -20,6 +20,7 @@ const NoteDetails = () => {
   const { noteId } = useLocalSearchParams();
   const { editNote } = useEditNote(noteId);
   const { note } = useGetNote(noteId);
+  console.log(note)
 
   const richText = useRef();
 
@@ -45,7 +46,7 @@ const NoteDetails = () => {
         HTMLcontent: descHTML,
         unformattedContent: replaceWhiteSpace,
       }
-      console.log(note)
+
       await editNote(note)
   }, 1000);
 

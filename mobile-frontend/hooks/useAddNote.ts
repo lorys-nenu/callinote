@@ -12,15 +12,13 @@ const useAddNote = () => {
       throw new Error("User not logged in");
     }
 
-    const response = await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes", {
+    return await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({title: "New note", HTMLcontent: "New note content", userId: user.id}),
     });
-
-    return response.json();
   }
 
   const queryClient = useQueryClient();

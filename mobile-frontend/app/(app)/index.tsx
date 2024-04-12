@@ -14,9 +14,6 @@ const Home = () => {
   const { notes, isLoading } = useGetNotes();
   const { addNote } = useAddNote();
 
-  //console log current path
-  const url = window.location?.pathname;
-  console.log(url);
   return (
     <View style={styles.container}>
       <Stack.Screen

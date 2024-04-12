@@ -1,4 +1,8 @@
+import { useState } from 'react';
+import { User } from './../constants/User';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useUser } from '@/stores/user';
+import { useAuth } from '@/stores/auth';
 
 type RegistrationData = {
   email: string;
@@ -6,10 +10,13 @@ type RegistrationData = {
   name?: string;
 };
 
-const useRegister = (registrationData: RegistrationData) => {
+const useRegister = () => {
+  const [error, setError] = useState<string | null>(null);
+  const {signIn} = useAuth();
+  const {setUser} = useUser();
   const queryClient = useQueryClient();
 
-  const register = async () => {
+  const register = async (registrationData: RegistrationData) => {
     const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/register", {
       method: "POST",
       headers: {
@@ -18,17 +25,31 @@ const useRegister = (registrationData: RegistrationData) => {
       body: JSON.stringify(registrationData),
     });
 
+    if (!response.ok) {
+      setError("Registration failed");
+    }
+
+    if (response.status === 409) {
+      setError("User already exists");
+    }
+
     return response.json();
   };
 
-  const { mutate } = useMutation<RegistrationData>({
+  const { mutateAsync } = useMutation<{user: User, token: string}, Error, RegistrationData>({
     mutationFn: register,
-    onSuccess: () => {
+    onMutate: () => {
+      setError(null);
+    },
+    onSuccess: (data) => {
+      if (!data) return;
+      signIn(data.token);
+      setUser(data.user);
       queryClient.invalidateQueries({queryKey: ["authUser"]});
     }
   });
 
-  return { register: mutate };
+  return { register: mutateAsync, error };
 };
 
 export default useRegister;

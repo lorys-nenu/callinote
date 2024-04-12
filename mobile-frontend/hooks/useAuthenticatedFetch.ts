@@ -14,9 +14,9 @@ const useAuthenticatedFetch = () => {
     });
 
     if (!response.ok) {
-      throw new Error(`Fetch request failed: ${response.status} ${response.statusText}`);
+      throw new Error("Network response was not ok");
     }
-
+    
     return response.json();
   };
 

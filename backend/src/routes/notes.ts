@@ -5,7 +5,11 @@ import { Router, Request, Response } from 'express'
 const router = Router()
 
 router.get('/', async (req: Request, res: Response) => {
-  const notes: Note[] = await prisma.note.findMany()
+  const notes: Note[] = await prisma.note.findMany({
+    where: {
+      userId: req.userId,
+    },
+  })
   res.status(200).json(notes)
 })
 
@@ -16,7 +20,7 @@ router.post('/', async (req: Request, res: Response) => {
       HTMLcontent: '',
       user: {
         connect: {
-          id: req.body.userId,
+          id: req.userId,
         }
       }
     },
@@ -42,7 +46,6 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 router.put('/:id', async (req: Request, res: Response) => {
   const { id } = req.params
-  console.log(id, req.body)
   const { title, HTMLcontent, unformattedContent } = req.body
   const note = await prisma.note.update({
     where: {

@@ -7,8 +7,7 @@ const useGetNotes = () => {
   const { data: notes, isPending, isError  } = useQuery<Note[]>({
     queryKey: ["notes"], 
     queryFn: async () => {
-      const response = await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes");
-      return response;
+      return await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes");
     }
   });
 
