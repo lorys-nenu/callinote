@@ -1,6 +1,7 @@
 import { Note } from "@/constants/Note";
 import { useUser } from "@/stores/user";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAuthenticatedFetch from "./useAuthenticatedFetch";
 
 /***
  * This hook is used to edit a note
@@ -16,6 +17,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useEditNote = (noteId: Note["id"]) => {
   const user = useUser().user;
+  const authenticatedFetch = useAuthenticatedFetch();
 
   const putNote = async (note: unknown) => {
     if (!user) {
@@ -24,7 +26,7 @@ const useEditNote = (noteId: Note["id"]) => {
 
     const noteObject = note as Note;
 
-    const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes/" + noteId, {
+    const response = await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes/" + noteId, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

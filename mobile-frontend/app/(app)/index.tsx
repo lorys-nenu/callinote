@@ -1,7 +1,7 @@
 //import liraries
 import useAddNote from '@/hooks/useAddNote';
 import useGetNotes from '@/hooks/useGetNotes';
-import { Stack, Link } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 import Button from '@/app/components/Button';
@@ -11,9 +11,12 @@ import Text from '@/app/components/Text';
 
 // create a component
 const Home = () => {
-  const {notes, isLoading} = useGetNotes();
+  const { notes, isLoading } = useGetNotes();
   const { addNote } = useAddNote();
 
+  //console log current path
+  const url = window.location?.pathname;
+  console.log(url);
   return (
     <View style={styles.container}>
       <Stack.Screen

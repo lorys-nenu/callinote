@@ -1,20 +1,24 @@
 import { Note } from "@/constants/Note";
 import { useQuery } from "@tanstack/react-query";
+import useAuthenticatedFetch from "./useAuthenticatedFetch";
 
 const useGetNotes = () => {
+  const authenticatedFetch = useAuthenticatedFetch();
   const { data: notes, isPending, isError  } = useQuery<Note[]>({
     queryKey: ["notes"], 
     queryFn: async () => {
-      const response = await fetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      
-      return response.json();
+      const response = await authenticatedFetch(process.env.EXPO_PUBLIC_BACKEND_URL + "/notes");
+      return response;
     }
   });
 
-  return { notes: notes?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()), isLoading: isPending, isError};
+  const sortedNotes = notes?.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+
+  return { 
+    notes: sortedNotes, 
+    isLoading: isPending, 
+    isError
+  };
 }
 
 export default useGetNotes;

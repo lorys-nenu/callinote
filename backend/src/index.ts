@@ -14,7 +14,8 @@ import bodyParser from 'body-parser'
 app.use(bodyParser.json())
 
 import notesRoutes from './routes/notes'
-app.use("/notes", notesRoutes)
+import isAuth from './middlewares/isAuth';
+app.use("/notes",isAuth, notesRoutes)
 
 
 app.get('/', (req: Request, res: Response) => {
@@ -74,7 +75,8 @@ app.post('/login', async (req: Request, res: Response) => {
   const secret = process.env.JWT_SECRET || ""; // Provide a default value for JWT_SECRET
   const token = jwt.sign({ id: user.id }, secret);
   // Sends the JWT back in the response.
-  res.json({ token, user });
+  console.log({ token, user });
+  res.status(200).json({ token, user });
 })
 
 app.get('/modal', (req: Request, res: Response) => {
