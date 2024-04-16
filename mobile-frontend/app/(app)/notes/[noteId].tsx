@@ -14,17 +14,18 @@ import theme from '@/constants/theme';
 import useEditNote from '@/hooks/useEditNote';
 import useGetNote from '@/hooks/useGetNote';
 import useDebouncedCallback from '@/hooks/useDebouncedCallback';
+import Input from '@/app/components/Input';
 
 // create a component
 const NoteDetails = () => {
   const { noteId } = useLocalSearchParams();
   const { editNote } = useEditNote(noteId);
   const { note } = useGetNote(noteId);
-  console.log(note)
 
   const richText = useRef();
 
   const [descHTML, setDescHTML] = useState("");
+  const [title, setTitle] = useState("");
   const [showDescError, setShowDescError] = useState(false);
 
   const richTextHandle = (descriptionText) => {
@@ -45,6 +46,7 @@ const NoteDetails = () => {
         id: noteId,
         HTMLcontent: descHTML,
         unformattedContent: replaceWhiteSpace,
+        title: title,
       }
 
       await editNote(note)
@@ -53,21 +55,33 @@ const NoteDetails = () => {
   useEffect(() => {
     if(!note) return;
     submitContentHandle();
-  }, [descHTML]);
+  }, [descHTML, title]);
 
   useEffect(() => {
     if(!note) return;
     setDescHTML(note.HTMLcontent);
+    setTitle(note.title);
   }, [note]);
 
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ 
-        title: note?.title ||'Note Details', 
         headerTitleStyle: {color: theme.white},
         headerTransparent: true, 
         headerBackTitle: 'Notes',
         headerTintColor: theme.purple[500],
+        headerTitleAlign: 'center',
+        headerTitle: (props) => 
+          <Input 
+            value={title} 
+            placeholder="Title" 
+            onChangeText={(title) => setTitle(title)} 
+            onBlur={submitContentHandle}
+            isInvisible
+            style={{ fontSize: 20 }}
+            containerStyles={{margin: 0}}
+            maxLength={25}
+          />
       }} />
       {note && (
         <View style={styles.richTextContainer}>
