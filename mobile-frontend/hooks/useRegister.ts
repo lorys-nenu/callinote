@@ -3,6 +3,7 @@ import { User } from './../constants/User';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUser } from '@/stores/user';
 import { useAuth } from '@/stores/auth';
+import { useMMKVString } from 'react-native-mmkv';
 
 type RegistrationData = {
   email: string;
@@ -11,6 +12,7 @@ type RegistrationData = {
 };
 
 const useRegister = () => {
+  const [, setToken] = useMMKVString("token");
   const [error, setError] = useState<string | null>(null);
   const {signIn} = useAuth();
   const {setUser} = useUser();
@@ -43,6 +45,7 @@ const useRegister = () => {
     },
     onSuccess: (data) => {
       if (!data) return;
+      setToken(data.token);
       signIn(data.token);
       setUser(data.user);
       queryClient.invalidateQueries({queryKey: ["authUser"]});

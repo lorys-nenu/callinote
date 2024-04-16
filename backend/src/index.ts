@@ -22,6 +22,16 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
+app.get('/me', isAuth, async (req: Request, res: Response) => {
+  const userId = req.userId
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  res.json(user);
+})
+
 app.post('/register', async (req: Request, res: Response) => {
   // Receives email and password from the request body.
   const { email, password } = req.body

@@ -39,3 +39,8 @@ mobile-frontend/.env
 
 # backend build
 backend/dist/
+
+# mobile-frontend build
+mobile-frontend/build/
+mobile-frontend/android/
+mobile-frontend/ios/

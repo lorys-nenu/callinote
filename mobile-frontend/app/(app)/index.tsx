@@ -8,11 +8,20 @@ import Button from '@/app/components/Button';
 import theme from '@/constants/theme';
 import NoteListCard from '@/app/components/NoteCard';
 import Text from '@/app/components/Text';
+import { useAuth } from '@/stores/auth';
+import { useMMKV, useMMKVString } from 'react-native-mmkv';
 
 // create a component
 const Home = () => {
+  const { signOut } = useAuth();
   const { notes, isLoading } = useGetNotes();
   const { addNote } = useAddNote();
+  const [,setToken] = useMMKVString('token');
+  
+  const handleSignOut = () => {
+    setToken('');
+    signOut();
+  }
 
   return (
     <View style={styles.container}>
@@ -22,6 +31,9 @@ const Home = () => {
           headerTitleStyle: {color: theme.white},
           headerBackground: () => (
             <View style={{backgroundColor: theme.black, flex: 1}} />
+          ),
+          headerRight: () => (
+            <Button title="Logout" onPress={handleSignOut} />
           ),
         }}
         />

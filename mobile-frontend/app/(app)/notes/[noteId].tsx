@@ -140,7 +140,7 @@ const NoteDetails = () => {
     flexDirection: "column",
     width: "100%",
     height: "100%",
-    paddingTop: "20px",
+    paddingTop: 5,
     border: "3px solid red",
   },
 

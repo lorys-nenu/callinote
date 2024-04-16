@@ -11,6 +11,9 @@ const queryClient = new QueryClient();
 
 import { useUser } from '@/stores/user';
 import { useIsNavigationReady } from '@/hooks/useIsNavigationReady';
+import { useMMKVString } from 'react-native-mmkv';
+import { useAuth } from '@/stores/auth';
+import useGetProfile from '@/hooks/useGetProfile';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,23 +49,34 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return <QueryClientProvider client={queryClient}>
+    <RootLayoutNav />
+    </QueryClientProvider>;
 }
 
 function RootLayoutNav() {
+  const {user: userProfile} = useGetProfile();
+  const [token] = useMMKVString('token');
+  const {signIn} = useAuth()
   const user = useUser().user
   const isReady = useIsNavigationReady()
   
   useEffect(() => {
     if (!isReady) return
-    if (!user) {
+    if (!user && !token) {
       router.navigate('login')
+    }
+
+    if (!user && token) {
+      signIn(token)
+    }
+
+    if (!user && userProfile) {
+      useUser().setUser(userProfile)
     }
   }, [isReady, user])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Slot />
-    </QueryClientProvider>
+    <Slot />
   );
 }
