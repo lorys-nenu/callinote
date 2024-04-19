@@ -44,3 +44,6 @@ backend/dist/
 mobile-frontend/build/
 mobile-frontend/android/
 mobile-frontend/ios/
+
+# DS Stores
+.DS_Store

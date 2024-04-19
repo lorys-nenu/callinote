@@ -103,7 +103,7 @@ const NoteDetails = () => {
             // }}
             // addMusic={handleAddMusic}
             style={styles.richTextToolbarStyle}
-            />
+          />
         <RichEditor
           initialContentHTML={note.HTMLcontent}
           ref={richText}
@@ -115,19 +115,18 @@ const NoteDetails = () => {
           initialHeight={250}
           />
       </View>
+    )}
+    {showDescError && (
+      <RNText>
+      Your content shouldn't be empty 🤔
+      </RNText>
       )}
-      {showDescError && (
-        <RNText>
-        Your content shouldn't be empty 🤔
-        </RNText>
-        )}
-        </SafeAreaView>
-        
-        );
-      };
+    </SafeAreaView>
+  );
+};
       
-      // define your styles
-      const styles = StyleSheet.create({
+  // define your styles
+  const styles = StyleSheet.create({
         container: {
     flex: 1,
     height: "100%",

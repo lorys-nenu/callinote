@@ -1,7 +1,7 @@
 //import liraries
 import useAddNote from '@/hooks/useAddNote';
 import useGetNotes from '@/hooks/useGetNotes';
-import { router, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import React from 'react';
 import { View, StyleSheet, ScrollView} from 'react-native';
 import Button from '@/app/components/Button';
@@ -9,7 +9,7 @@ import theme from '@/constants/theme';
 import NoteListCard from '@/app/components/NoteCard';
 import Text from '@/app/components/Text';
 import { useAuth } from '@/stores/auth';
-import { useMMKV, useMMKVString } from 'react-native-mmkv';
+import { useMMKVString } from 'react-native-mmkv';
 
 // create a component
 const Home = () => {
