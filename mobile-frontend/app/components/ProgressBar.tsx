@@ -18,6 +18,7 @@ const ProgressBar = ({max, min, value, onChangeProgress}: ProgressBarProps) => {
     <Slider
       style={styles.slider}
       minimumValue={min}
+      maximumValue={max}
       value={isHandling ? slidingValue : value}
       onSlidingStart={() => setIsHandling(true)}
       onValueChange={(value) => setSlidingValue(value)}
