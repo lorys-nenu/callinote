@@ -4,11 +4,13 @@ import { Audio, AVPlaybackStatus, InterruptionModeAndroid, InterruptionModeIOS }
 import { Ionicons } from "@expo/vector-icons";
 import theme from "@/constants/theme";
 import ProgressBar from "./ProgressBar";
+import { useKeyboardHeight } from "@/hooks/useKeyboardHeight";
 
 const AudioPlayer = ({ src }: {src: string}) => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [soundData, setSoundData] = useState<AVPlaybackStatus | null>(null);
+  const keyboardHeight = useKeyboardHeight();
 
   const playSound = async () => {
     if (sound) {
@@ -62,7 +64,7 @@ const AudioPlayer = ({ src }: {src: string}) => {
   }, [src]);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {position: "absolute", bottom: keyboardHeight}]}>
       {soundData?.isLoaded && 
         <ProgressBar 
           max={soundData?.playableDurationMillis || 0} 
@@ -85,7 +87,6 @@ const AudioPlayer = ({ src }: {src: string}) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    bottom: 0,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: theme.black,

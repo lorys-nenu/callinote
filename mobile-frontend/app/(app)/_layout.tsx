@@ -1,7 +1,6 @@
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { useAuth } from "@/stores/auth";
 import Text from "../components/Text";
-import { SafeAreaView } from "react-native-safe-area-context";
 import AudioPlayer from "../components/AudioPlayer";
 
 export default function AppLayout() {
@@ -17,7 +16,7 @@ export default function AppLayout() {
 
   return (
     <>
-      <Stack />
+      <Slot />
       <AudioPlayer src="https://docs.google.com/uc?export=open&id=1LO_HZL5Zc1HVxexCmfCvNePLUlbZt1d8" />
     </>
   );
