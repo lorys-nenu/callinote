@@ -1,4 +1,4 @@
-import { Redirect, Slot } from "expo-router";
+import { Redirect, Stack } from "expo-router";
 import { useAuth } from "@/stores/auth";
 import Text from "../components/Text";
 import AudioPlayer from "../components/AudioPlayer";
@@ -16,7 +16,7 @@ export default function AppLayout() {
 
   return (
     <>
-      <Slot />
+      <Stack />
       <AudioPlayer src="https://docs.google.com/uc?export=open&id=1LO_HZL5Zc1HVxexCmfCvNePLUlbZt1d8" />
     </>
   );
